@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "@/app/styles/datepicker.css"
 
 function TimeDate() {
-    const {updateAppointmentDataDetails, newAppointmentData} = useAddAppointmentContext();
+    const {updateAppointmentDataDetails} = useAddAppointmentContext();
     const [date, setDate] = useState(new Date())
     const [day, setDay] = useState<string>('');
     const [isDaySelected, setIsDaySelected] = useState<boolean>(false);
