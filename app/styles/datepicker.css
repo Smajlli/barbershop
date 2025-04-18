@@ -1,0 +1,61 @@
+input {
+    padding: 7px;
+}
+
+input:hover {
+    cursor: pointer;
+}
+
+.react-datepicker {
+    background-color: white;
+    box-shadow: 0px 5px 34px 9px rgba(0, 0, 0, 0.07);
+    border: 1px solid oklch(84.5% 0.143 164.978);
+    padding: 10px;
+}
+
+
+.react-datepicker__header {
+    padding: 10px;
+    background-color: white;
+    border-bottom: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}
+
+.react-datepicker__current-month {
+    color: oklch(27.9% 0.041 260.031);
+}
+
+.react-datepicker__day-names {
+    display: flex;
+    gap: 5px;
+}
+
+.react-datepicker__day-name {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: oklch(44.6% 0.043 257.281);
+}
+
+.react-datepicker__week > div {
+    color: oklch(27.9% 0.041 260.031);
+}
+
+.react-datepicker__week > .react-datepicker__day--disabled {
+    color: grey;
+}
+
+.react-datepicker__week > .react-datepicker__day--selected {
+    color: white;
+    background-color: oklch(84.5% 0.143 164.978);
+    border-radius: 100%;
+}
+
+.react-datepicker__week > .react-datepicker__day--selected :hover {
+    color: white;
+    background-color: oklch(84.5% 0.143 164.978);
+    border-radius: 100%;
+}
