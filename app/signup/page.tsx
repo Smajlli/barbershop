@@ -2,6 +2,7 @@
 
 import { createClient } from "@/app/utils/supabase/client"
 import React, { useState, useEffect } from "react"
+import { redirect } from 'next/navigation'
 
 function Signup() {
     const [fullname, setFullname] = useState<string>('')
@@ -34,6 +35,8 @@ function Signup() {
                 }
             }
         });
+
+        redirect('/add');
     }
 
     return <div className="w-full h-full flex justify-center items-center flex-col gap-10">
