@@ -2,6 +2,7 @@
 
 import { createClient } from "@/app/utils/supabase/client";
 import React, { useState } from "react";
+import { redirect } from 'next/navigation'
 
 function Login() {
     const [email, setEmail] = useState<string>('')
@@ -22,6 +23,8 @@ function Login() {
             email,
             password
         })
+
+        redirect('/add');
     }
 
     return <div className="w-full h-full flex flex-col justify-center items-center gap-10">
