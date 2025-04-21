@@ -36,7 +36,7 @@ function Signup() {
             }
         });
 
-        redirect('/add');
+        redirect('/login');
     }
 
     return <div className="w-full h-full flex justify-center items-center flex-col gap-10">
