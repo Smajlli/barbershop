@@ -6,6 +6,7 @@ import { IoMdTime } from "react-icons/io";
 import { MdDateRange } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 import { MdCreditCard } from "react-icons/md";
+import { createClient } from "@/app/utils/supabase/client";
 
 import React from "react";
 
@@ -13,6 +14,35 @@ function SummaryForm() {
     const {newAppointmentData, newTreatmentData} = useAddAppointmentContext();
     const filteredData = filterTreatments(newTreatmentData);
     const price = calculatePrice(newTreatmentData);
+
+    const supabase = createClient();
+
+    const handleAppointmentData = async() => {
+
+        const { error } = await supabase
+        .from('appointments')
+        .insert({fullname: `${newAppointmentData.firstname} ${newAppointmentData.lastname}`, date: newAppointmentData.date, time: newAppointmentData.time, price});
+
+        if(error) console.log(error);
+    }
+
+    const handleTreatmentData = () => {
+
+        filteredData.map(async(t) => {
+            if(t.tretmentName !== '') {
+                const { error } = await supabase
+                    .from('booked_services')
+                    .insert({ service_name: t.tretmentName, service_count: t.treatmentCount + 1 });
+
+                if (error) console.log(error); 
+            }
+        })
+    }
+
+    const handleData = () => {
+        handleAppointmentData();
+        handleTreatmentData();
+    }
 
     return <div className="w-full h-full md:w-1/2 bg-white border rounded-md drop-shadow-md p-8 divide-y">
         <div className="flex flex-row gap-4 p-3"><FaUser className="text-emerald-400 h-12 h-5 w-5"/> {newAppointmentData.firstname} {newAppointmentData.lastname}</div>
@@ -32,7 +62,7 @@ function SummaryForm() {
         </div>
         <div>
             <div className="flex flex-row gap-4 p-3"><MdCreditCard className="text-emerald-400 h-12 h-5 w-5" /> {price} BAM</div>
-            <button className="bg-emerald-400 text-white font-bold border rounded-md p-2 text-sm text-center">Done</button>
+            <button className="bg-emerald-400 text-white font-bold border rounded-md p-2 text-sm text-center" onClick={handleData}>Done</button>
         </div>
     </div>
 }
