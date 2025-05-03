@@ -1,6 +1,6 @@
 'use client'
 
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "@/app/utils/supabase/client";
 import React, { useState } from "react";
 
 function Register() {
@@ -21,28 +21,27 @@ function Register() {
     }
 
     const handleRegister = async(formData: FormData) => {
-        const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY as string, {
-            auth: {
-                autoRefreshToken: false,
-                persistSession: false
-            }
-        });
+        const supabase = createClient();
 
-        const {error} = await supabase.auth.admin.createUser({
+        const {data: {user}, error} = await supabase.auth.signUp({
             email: formData.get('email') as string,
             password: formData.get('password') as string,
-            role: 'supabase_auth_admin',
-            user_metadata: {
-                fullName,
-                email
-            }
+            options: {
+                data: {
+                    fullname: fullName,
+                    email,
+                    role: 'admin'
+                },
+            },
         });
+
+        console.log(user);
 
         if(error) console.log(error);
     }
 
     return <div className="w-full h-full flex justify-center items-center flex-col gap-10">
-        <h1 className="text-3xl">Sign up</h1>
+        <h1 className="text-3xl">Admin Sign up</h1>
         <form action={handleRegister} className="flex flex-col item-center gap-8">
             <div className="flex flex-col items-center">
                 <label htmlFor="fullname" className="text-xl">Full name:</label>

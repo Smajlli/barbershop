@@ -23,7 +23,7 @@ function Signup() {
 
     const handleSignup = async (formData: FormData) => {
 
-        const supabase = await createClient();
+        const supabase = createClient();
 
         await supabase.auth.signUp({
             email: formData.get('email') as string,
@@ -31,7 +31,8 @@ function Signup() {
             options: {
                 data: {
                     fullname,
-                    email
+                    email,
+                    role: 'user'
                 }
             }
         });
