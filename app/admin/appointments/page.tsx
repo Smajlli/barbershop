@@ -12,8 +12,16 @@ type appointmentType = {
     user_id?: string
 }
 
+type bookedServicesType = {
+    id: string, 
+    service_name: string, 
+    service_count: number, 
+    user_id: string
+}
+
 function Appointments() {
     const [appointments, setAppointments] = useState<appointmentType[]>();
+    const [bookedServices, setBookedServices] = useState<bookedServicesType[]>();
 
     useEffect(() => {
         async function fetchAppointments() {
@@ -25,13 +33,26 @@ function Appointments() {
                 if (error) console.log(error.message)
             }
         }
+
+        async function fetchServices() {
+            const supabase = createClient();
+            const {data, error} = await supabase.from('booked_services').select('*');
+            if(data) setBookedServices(data);
+            if(error) console.log(error);
+        }
         fetchAppointments();
+        fetchServices();
     }, [])
 
     return <div>
         <h1> Here's appointments for today </h1>
-        <div>{appointments?.map((a) => (
-            <div> {a.fullname} </div>
+        <div>{appointments?.map((a, i) => (
+            <div key={i}>
+                <div>{a.fullname}</div>
+                <div>{bookedServices?.map((s, i) => (
+                    s.user_id === a.user_id ? <div key={i}>{s.service_name}</div> : null
+                ))}</div>
+            </div>
         ))}</div>
     </div>
 }
