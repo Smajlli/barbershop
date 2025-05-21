@@ -29,7 +29,7 @@ function TimeDate() {
     return <>
         <form className="flex flex-col gap-10">
             <div className="h-1/2">
-                <DatePicker className="react-datepicker" selected={date} onChange={handleDate} placeholderText="Select date" minDate={new Date()} filterDate={(date) => date.getDay() !== 3}/>
+                <DatePicker className="react-datepicker" selected={date} onChange={handleDate} placeholderText="Select date" minDate={new Date()}/>
             </div>
             {isDaySelected && day !== 'Sat' ? <div>
                 <label htmlFor="time" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Choose a time:</label>
