@@ -16,7 +16,6 @@ function SummaryForm() {
     const filteredData = filterTreatments(newTreatmentData);
     const price = calculatePrice(newTreatmentData);
     const appointmentId = uuid();
-    console.log(appointmentId);
 
     const supabase = createClient();
 
