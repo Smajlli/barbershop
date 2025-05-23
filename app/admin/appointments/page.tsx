@@ -3,26 +3,11 @@
 import { createClient } from "@/app/utils/supabase/client";
 import { useState, useEffect } from "react";
 import { IoMdTime } from "react-icons/io";
-
-type appointmentType = {
-    date?: string,
-    fullname?: string, 
-    id?: string, 
-    price?: number,
-    time?: string, 
-    user_id?: string
-}
-
-type bookedServicesType = {
-    id: string, 
-    service_name: string, 
-    service_count: number, 
-    appointment_id: string
-}
+import type { AppointmentType, BookedServicesType } from "@/app/types";
 
 function Appointments() {
-    const [appointments, setAppointments] = useState<appointmentType[]>();
-    const [bookedServices, setBookedServices] = useState<bookedServicesType[]>();
+    const [appointments, setAppointments] = useState<AppointmentType[]>();
+    const [bookedServices, setBookedServices] = useState<BookedServicesType[]>();
     const date = new Date().getDate();
     const today = new Date().toLocaleDateString();
     const month = new Date().toLocaleString('default', {month: 'long'});
