@@ -3,11 +3,11 @@
 import { createClient } from "@/app/utils/supabase/client";
 import React, { useState } from "react";
 import { redirect } from 'next/navigation'
+import { ToastContainer, toast } from 'react-toastify'
 
 function Login() {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-
     const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     }
@@ -24,10 +24,15 @@ function Login() {
             password
         })
 
-        redirect('/add');
+        if(error) {
+            toast.error("Incorrect username or password")
+        } else {
+            redirect('/add')
+        }
     }
 
     return <div className="w-full h-full flex flex-col justify-center items-center gap-10">
+        <ToastContainer position="top-right" autoClose={5000} pauseOnFocusLoss pauseOnHover theme="light"/>
         <h1 className="text-3xl">Login</h1>
         <form action={handleLogin} className="flex flex-col item-center gap-8">
             <div className="flex flex-col items-center">
